@@ -916,4 +916,65 @@ textarea::placeholder { color: var(--muted); }
   font-family: var(--font);
 }
 
+/* ═══ Mobile Responsive ══════════════════════ */
+.mobile-menu-btn { display: none; }
+.sidebar-overlay { display: none; }
 
+@media (max-width: 768px) {
+  .header { padding: 0 16px; }
+  .mobile-menu-btn {
+    display: block;
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    color: var(--text);
+    cursor: pointer;
+    margin-left: 8px;
+  }
+  
+  .sidebar {
+    position: fixed;
+    top: 54px;
+    right: 0;
+    bottom: 0;
+    width: 280px;
+    z-index: 100;
+    transform: translateX(100%);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: -4px 0 24px rgba(0,0,0,0.05);
+  }
+  
+  .sidebar.open {
+    transform: translateX(0);
+  }
+  
+  .sidebar-overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    top: 54px;
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 99;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  
+  .sidebar-overlay { opacity: 1; pointer-events: auto; } /* Handled conditionally in React so if it exists it should be visible */
+
+  .screen { padding: 24px 16px; }
+  .screen-title { font-size: 26px; }
+  
+  .trend-grid { grid-template-columns: 1fr; }
+  .custom-row { flex-direction: column; }
+  
+  .messages { padding: 16px 16px 8px; }
+  .msg { max-width: 90%; }
+  
+  .input-area { padding: 8px 16px 12px; }
+  
+  .cmd-palette { width: 95%; max-height: 85vh; margin-top: 5vh; }
+  .cmd-overlay { padding-top: 0; align-items: center; justify-content: center; }
+}

@@ -53,6 +53,7 @@ export default function AgentX() {
   const [cmdIndex, setCmdIndex]     = useState(0);
   const [isVisitor, setIsVisitor]   = useState(false);
   const [ownerMem, setOwnerMem]     = useState({});
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const inputRef    = useRef(null);
   const newTopicRef = useRef(null);
@@ -533,6 +534,7 @@ Rules:
             💬 <strong>{topic}</strong>
           </div>
           <button className="btn-clear" onClick={clearAll}>Clear</button>
+          <button className="mobile-menu-btn" onClick={() => setSidebarOpen(prev => !prev)}>☰</button>
         </div>
       </header>
 
@@ -626,7 +628,8 @@ Rules:
         </div>
 
         {/* ═══ SIDEBAR ═══ */}
-        <aside className="sidebar">
+        {sidebarOpen && <div className="sidebar-overlay" onClick={() => setSidebarOpen(false)} />}
+        <aside className={`sidebar${sidebarOpen ? " open" : ""}`}>
           <div className="sidebar-head">
             <div className="sidebar-head-title"><div className="live-dot"></div> Memory Active</div>
             <div className="sidebar-head-sub">Building your profile as we talk</div>
@@ -662,7 +665,7 @@ Rules:
           </div>
 
           <div className={`sidebar-footer${screen === "chat" ? " visible" : ""}`}>
-            <button className="switch-btn" onClick={() => { setModalOpen(true); setCmdFilter(""); setCmdIndex(0); }}>↻ Switch Topic</button>
+            <button className="switch-btn" onClick={() => { setModalOpen(true); setCmdFilter(""); setCmdIndex(0); setSidebarOpen(false); }}>↻ Switch Topic</button>
             {!isVisitor && <button className="share-btn" onClick={shareAgent}>🔗 Share My Agent</button>}
           </div>
         </aside>
